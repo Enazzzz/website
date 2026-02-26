@@ -32,6 +32,7 @@ function mergeSiteContent(base: SiteContent, override: Partial<SiteContent>): Si
 		awards: override.awards ?? base.awards,
 		nowEntries: override.nowEntries ?? base.nowEntries,
 		links: override.links ?? base.links,
+		theme: override.theme ?? base.theme,
 	};
 }
 

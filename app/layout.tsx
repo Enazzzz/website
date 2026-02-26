@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { getSiteContent } from "@/lib/content-store";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,16 +28,26 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
 	const gaId = process.env.NEXT_PUBLIC_GA_ID;
+	const content = await getSiteContent();
+	const theme = content.theme;
+	const themedVariables = {
+		"--bg": theme.bg,
+		"--surface": theme.surface,
+		"--text": theme.text,
+		"--accent": theme.accent,
+		"--accent-alt": theme.accentAlt,
+		"--border": theme.border,
+	} as React.CSSProperties;
 
 	return (
 		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+			<body style={themedVariables} className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				{children}
 				<Analytics />
 				{gaId ? (

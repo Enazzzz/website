@@ -8,7 +8,23 @@ import type { SiteContent } from "@/data/types";
  */
 export async function GET() {
 	const content = await getSiteContent();
-	return NextResponse.json(content);
+	const response = NextResponse.json(content);
+	response.headers.set("x-console-password-required", process.env.ADMIN_PASSWORD ? "true" : "false");
+	return response;
+}
+
+/**
+ * Verifies console access credentials without mutating content.
+ */
+export async function POST(request: Request) {
+	const configuredPassword = process.env.ADMIN_PASSWORD;
+	const providedPassword = request.headers.get("x-admin-password");
+
+	if (configuredPassword && providedPassword !== configuredPassword) {
+		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+	}
+
+	return NextResponse.json({ ok: true });
 }
 
 /**

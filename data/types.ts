@@ -109,6 +109,18 @@ export interface ProfileContent {
 /**
  * Single content schema used by public pages and console CRUD.
  */
+export interface ThemeSettings {
+	bg: string;
+	surface: string;
+	text: string;
+	accent: string;
+	accentAlt: string;
+	border: string;
+}
+
+/**
+ * Single content schema used by public pages and console CRUD.
+ */
 export interface SiteContent {
 	profile: ProfileContent;
 	github: GithubProfile;
@@ -118,6 +130,7 @@ export interface SiteContent {
 	awards: Award[];
 	nowEntries: NowEntry[];
 	links: LinkEntry[];
+	theme: ThemeSettings;
 }
 
 /**

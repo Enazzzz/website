@@ -5,6 +5,7 @@ import { nowEntries } from "@/data/now";
 import { profile, github } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { skills } from "@/data/skills";
+import { defaultTheme } from "@/data/theme";
 import type { SiteContent } from "@/data/types";
 
 /**
@@ -19,4 +20,5 @@ export const defaultSiteContent: SiteContent = {
 	awards,
 	nowEntries,
 	links,
+	theme: defaultTheme,
 };
