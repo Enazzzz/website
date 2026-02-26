@@ -16,16 +16,32 @@ export default async function Home() {
 	const content = await getSiteContent();
 
 	return (
-		<div className="min-h-screen bg-[color:var(--bg)]">
-			<Header links={content.links} />
-			<main>
+		<div className="page-content-bg min-h-screen">
+			<Header
+				links={content.links}
+				siteTitle={content.site?.siteTitle ?? content.profile.name}
+				iconText={content.site?.iconText}
+			/>
+			<main className="pb-24">
 				<Hero profile={content.profile} github={content.github} />
-				<AboutSection profile={content.profile} />
-				<ProjectsSection projects={content.projects} />
-				<SkillsSection categories={content.skills} />
-				<ExperienceSection items={content.experience} />
-				<AwardsSection awards={content.awards} />
-				<ContactForm />
+				<div className="fade-in-up fade-in-up-delay-1">
+					<AboutSection profile={content.profile} />
+				</div>
+				<div className="fade-in-up fade-in-up-delay-2">
+					<ProjectsSection projects={content.projects} />
+				</div>
+				<div className="fade-in-up fade-in-up-delay-3">
+					<SkillsSection categories={content.skills} />
+				</div>
+				<div className="fade-in-up fade-in-up-delay-4">
+					<ExperienceSection items={content.experience} />
+				</div>
+				<div className="fade-in-up fade-in-up-delay-5">
+					<AwardsSection awards={content.awards} />
+				</div>
+				<div className="fade-in-up fade-in-up-delay-6">
+					<ContactForm />
+				</div>
 			</main>
 			<Footer links={content.links} />
 		</div>

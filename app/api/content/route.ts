@@ -42,7 +42,22 @@ export async function PUT(request: Request) {
 		const payload = (await request.json()) as SiteContent;
 		await saveSiteContent(payload);
 		return NextResponse.json({ ok: true });
-	} catch {
-		return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+	} catch (err) {
+		const message = err instanceof Error ? err.message : "";
+		const isReadOnly =
+			message.includes("EROFS") ||
+			message.includes("read-only") ||
+			message.includes("EPERM") ||
+			message.includes("EACCES");
+		if (isReadOnly) {
+			return NextResponse.json(
+				{
+					error:
+						"Saving is not available on this deployment. The filesystem is read-only (e.g. on Vercel). Edit content locally or add a writable store (e.g. Vercel KV).",
+				},
+				{ status: 503 },
+			);
+		}
+		return NextResponse.json({ error: "Invalid payload or save failed." }, { status: 400 });
 	}
 }

@@ -1,3 +1,4 @@
+import { defaultTheme } from "@/data/theme";
 import type { Project, ThemeSettings } from "@/data/types";
 
 /**
@@ -84,37 +85,24 @@ export const themePresets: Array<{ id: string; label: string; theme: ThemeSettin
 	{
 		id: "default",
 		label: "Default",
-		theme: {
-			bg: "#06070e",
-			surface: "#101423",
-			text: "#f6f7ff",
-			accent: "#8c7bff",
-			accentAlt: "#27d8ff",
-			border: "rgba(255, 255, 255, 0.12)",
-		},
+		theme: { ...defaultTheme, bg: "#06070e", surface: "#101423", text: "#f6f7ff", accent: "#8c7bff", accentAlt: "#27d8ff", border: "rgba(255, 255, 255, 0.12)", font: "geist" },
 	},
 	{
 		id: "ocean",
 		label: "Ocean",
-		theme: {
-			bg: "#041018",
-			surface: "#0d2230",
-			text: "#eaf9ff",
-			accent: "#2ec4ff",
-			accentAlt: "#6ef3d6",
-			border: "rgba(160, 234, 255, 0.24)",
-		},
+		theme: { ...defaultTheme, bg: "#041018", surface: "#0d2230", text: "#eaf9ff", accent: "#2ec4ff", accentAlt: "#6ef3d6", border: "rgba(160, 234, 255, 0.24)", font: "geist" },
 	},
 	{
 		id: "sunset",
 		label: "Sunset",
-		theme: {
-			bg: "#13060d",
-			surface: "#26101e",
-			text: "#fff2f8",
-			accent: "#ff7ab6",
-			accentAlt: "#ffb14d",
-			border: "rgba(255, 168, 214, 0.24)",
-		},
+		theme: { ...defaultTheme, bg: "#13060d", surface: "#26101e", text: "#fff2f8", accent: "#ff7ab6", accentAlt: "#ffb14d", border: "rgba(255, 168, 214, 0.24)", font: "geist" },
 	},
+];
+
+/** Font options for the Theme editor dropdown. */
+export const fontOptions: Array< { id: ThemeSettings["font"]; label: string }> = [
+	{ id: "geist", label: "Geist (default)" },
+	{ id: "inter", label: "Inter" },
+	{ id: "playfair", label: "Playfair Display (serif)" },
+	{ id: "space-grotesk", label: "Space Grotesk" },
 ];

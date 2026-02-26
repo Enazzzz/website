@@ -2,6 +2,7 @@
  * Section keys used by the console sidebar and renderer.
  */
 export type ConsoleSectionId =
+	| "site"
 	| "profile"
 	| "github"
 	| "projects"
@@ -24,6 +25,7 @@ export interface ConsoleSectionOption {
  * Default list of sections shown in the admin console.
  */
 export const consoleSectionOptions: ConsoleSectionOption[] = [
+	{ id: "site", label: "Site" },
 	{ id: "profile", label: "Profile" },
 	{ id: "github", label: "GitHub" },
 	{ id: "projects", label: "Projects" },

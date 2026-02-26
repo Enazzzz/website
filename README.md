@@ -50,21 +50,28 @@ Update any of these files:
 - `data/now.ts`
 - `data/links.ts`
 
-### Edit with Console
+### Edit with Console (local only)
 
-- Visit `/console`
-- Edit the JSON payload
-- Save changes
+The **console is only available when you run the app locally.** On Vercel, `/console` returns 404 so the admin UI is never exposed in production.
 
-If `ADMIN_PASSWORD` is set, the save endpoint requires it.
+1. Run the app locally (`npm run dev`).
+2. Open `http://localhost:3000/console`.
+3. Edit sections and click **Save changes** (writes to `data/runtime-content.json`).
+4. Commit `data/runtime-content.json` and deploy. The live site will use that content.
+
+If `ADMIN_PASSWORD` is set in `.env.local`, the console (and save endpoint) require it.
 
 ## Contact Submissions Storage
 
-Contact form submissions are currently saved to:
+Contact form submissions are saved to:
 
-- `data/contact-submissions.json`
+- **With KV:** When `KV_REST_API_URL` and `KV_REST_API_TOKEN` are set, submissions go to the same Redis store as console content (key `contact-submissions`).
+- **Without KV:** `data/contact-submissions.json` (e.g. local development).
 
-This is the chosen storage backend for now. You can swap this to Vercel KV or Postgres later via `lib/content-store.ts`.
+## Console and saving
+
+- **Locally:** The console is available at `/console`. Saving writes to `data/runtime-content.json` (and the contact form to `data/contact-submissions.json`). You can commit that file and deploy so the live site uses your edits—no KV needed.
+- **On Vercel:** `/console` is **hidden** (404). The app detects `VERCEL` and only serves the console when running locally, so the admin UI is never exposed in production. If you later want to edit from production, add a Redis store (see env vars) and you’d need to change the layout to allow console on Vercel when KV is set; for most use cases, editing locally and committing is simpler and safer.
 
 ## Environment Variables
 
@@ -76,6 +83,10 @@ ADMIN_PASSWORD=your-strong-password
 
 # Optional: enables Google Analytics in layout
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+# Set automatically when you add a Redis store in Vercel (Storage/Integrations). Needed for console saving and contact form storage on Vercel.
+# KV_REST_API_URL=
+# KV_REST_API_TOKEN=
 ```
 
 ## Analytics
@@ -88,7 +99,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 1. Push this project to GitHub.
 2. Import the repository in Vercel.
 3. Add environment variables (`ADMIN_PASSWORD`, `NEXT_PUBLIC_GA_ID`) in Vercel Project Settings.
-4. Deploy.
+4. (Optional) Add a Redis store (e.g. Upstash Redis) in Vercel so the console and contact form can save in production; Vercel will set `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+5. Deploy.
 
 ## Custom Domain (Later)
 

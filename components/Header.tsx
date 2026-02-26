@@ -2,16 +2,28 @@ import type { LinkEntry } from "@/data/types";
 
 /**
  * Top navigation with creative section labels.
+ * Uses siteTitle and iconText from console (Site section) so the header updates without rebuild.
  */
-export function Header({ links }: { links: LinkEntry[] }) {
+export function Header({
+	links,
+	siteTitle = "Portfolio Hub",
+	iconText = "PH",
+}: {
+	links: LinkEntry[];
+	/** Browser/site name shown next to the logo (editable in Console → Site). */
+	siteTitle?: string;
+	/** 1–3 chars shown in the logo badge (editable in Console → Site). */
+	iconText?: string;
+}) {
+	const badge = (iconText || "PH").slice(0, 3);
 	return (
 		<header className="sticky top-0 z-30 border-b border-white/10 bg-[color:var(--surface)]/80 backdrop-blur-md">
 			<div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
-				<a href="#top" className="flex items-center gap-2 text-sm font-semibold tracking-wide text-white">
+				<a href="/" className="flex items-center gap-2 text-sm font-semibold tracking-wide text-white">
 					<span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[color:var(--accent)] to-[color:var(--accent-alt)] text-[11px] font-black text-black">
-						PH
+						{badge}
 					</span>
-					Portfolio Hub
+					{siteTitle}
 				</a>
 				<nav aria-label="Primary" className="hidden gap-4 text-sm text-white/80 md:flex">
 					<a href="#what-i-build" className="transition hover:text-[color:var(--accent)]">

@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { ConsoleLogin } from "@/components/console/ConsoleLogin";
+import { MarkdownEditor } from "@/components/console/MarkdownEditor";
 import { ConsoleSidebar } from "@/components/console/ConsoleSidebar";
 import { SortableList } from "@/components/console/SortableList";
+import { NowMarkdownContent } from "@/components/NowMarkdownContent";
 import { consoleSectionOptions, type ConsoleSectionId } from "@/components/console/types";
 import type {
 	Award,
@@ -16,11 +18,12 @@ import type {
 	ProfileContent,
 	Project,
 	ProjectType,
+	SiteBranding,
 	SiteContent,
 	SkillCategory,
 	ThemeSettings,
 } from "@/data/types";
-import { projectTemplates, themePresets } from "@/lib/console-templates";
+import { fontOptions, projectTemplates, themePresets } from "@/lib/console-templates";
 
 type SaveState = "idle" | "saving" | "success" | "error";
 type LoadState = "loading" | "ready" | "error";
@@ -271,6 +274,12 @@ export default function ConsolePage() {
 						<p className={`text-sm ${saveState === "error" ? "text-red-300" : "text-green-300"}`}>{saveMessage}</p>
 					) : null}
 
+					{activeSection === "site" ? (
+						<SiteSectionEditor
+							value={content.site}
+							onChange={(value) => updateContent((current) => ({ ...current, site: value }))}
+						/>
+					) : null}
 					{activeSection === "profile" ? (
 						<ProfileSectionEditor
 							value={content.profile}
@@ -327,6 +336,37 @@ export default function ConsolePage() {
 					) : null}
 				</section>
 			</main>
+		</div>
+	);
+}
+
+/**
+ * Site branding editor: browser title and favicon (editable in console).
+ */
+function SiteSectionEditor({
+	value,
+	onChange,
+}: {
+	value: SiteBranding;
+	onChange: (value: SiteBranding) => void;
+}) {
+	return (
+		<div className="section-card grid gap-4">
+			<EditorTextField
+				label="Site title (browser tab)"
+				value={value.siteTitle}
+				onChange={(next) => onChange({ ...value, siteTitle: next })}
+			/>
+			<EditorTextField
+				label="Icon text (2–3 letters on favicon, e.g. PH or ZD)"
+				value={value.iconText}
+				onChange={(next) => onChange({ ...value, iconText: next.slice(0, 3) })}
+			/>
+			<EditorTextField
+				label="Favicon URL (optional – leave empty to use generated icon above)"
+				value={value.faviconUrl ?? ""}
+				onChange={(next) => onChange({ ...value, faviconUrl: next.trim() || undefined })}
+			/>
 		</div>
 	);
 }
@@ -829,7 +869,33 @@ function AwardsSectionEditor({
 }
 
 /**
- * Now entries editor with CRUD and reorder support.
+ * Mini card preview matching the Now page card style (for list summary).
+ */
+function NowEntrySummaryCard({ entry }: { entry: NowEntry }) {
+	return (
+		<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+			<p className="text-xs uppercase tracking-[0.12em] text-white/60">{entry.date}</p>
+			<p className="mt-2 line-clamp-2 text-sm text-white/85">{entry.content}</p>
+		</div>
+	);
+}
+
+/**
+ * Live preview card matching the Now page (used while editing). Renders Markdown including images.
+ */
+function NowEntryPreviewCard({ date, content }: { date: string; content: string }) {
+	return (
+		<div className="section-card min-h-[140px] p-5">
+			<p className="text-sm uppercase tracking-[0.12em] text-white/60">{date || "YYYY-MM-DD"}</p>
+			<div className="mt-4 text-base leading-7 text-white/90 [&>*]:text-inherit [&>*]:leading-inherit">
+				{content ? <NowMarkdownContent content={content} /> : <p className="text-white/50">Your update content…</p>}
+			</div>
+		</div>
+	);
+}
+
+/**
+ * Now entries editor with CRUD, reorder, and live card preview.
  */
 function NowSectionEditor({
 	value,
@@ -848,16 +914,26 @@ function NowSectionEditor({
 				date: new Date().toISOString().slice(0, 10),
 				content: "Write a short update.",
 			})}
-			renderSummary={(item) => (
-				<div className="grid gap-1">
-					<p className="font-semibold text-white">{item.date}</p>
-					<p className="text-sm text-white/70">{item.content}</p>
-				</div>
-			)}
+			renderSummary={(item) => <NowEntrySummaryCard entry={item} />}
 			renderEditor={(item, setItem) => (
-				<div className="grid gap-2">
-					<EditorTextField label="Date (YYYY-MM-DD)" value={item.date} onChange={(next) => setItem({ ...item, date: next })} />
-					<EditorTextArea label="Content" value={item.content} onChange={(next) => setItem({ ...item, content: next })} />
+				<div className="grid gap-6 md:grid-cols-2">
+					<div className="grid gap-2">
+						<EditorTextField
+							label="Date (YYYY-MM-DD)"
+							value={item.date}
+							onChange={(next) => setItem({ ...item, date: next })}
+						/>
+						<MarkdownEditor
+							label="Content (Markdown: **bold**, *italic*, [link](url), ![alt](image url))"
+							value={item.content}
+							onChange={(next) => setItem({ ...item, content: next })}
+							minHeight="12rem"
+						/>
+					</div>
+					<div>
+						<p className="mb-2 text-xs text-white/60">Preview (matches /now page)</p>
+						<NowEntryPreviewCard date={item.date} content={item.content} />
+					</div>
 				</div>
 			)}
 		/>
@@ -900,8 +976,19 @@ function LinksSectionEditor({
 	);
 }
 
+/** Default gradient settings when theme has none (e.g. old saved content). */
+const defaultBackgroundGradient: ThemeSettings["backgroundGradient"] = {
+	enabled: true,
+	radius1: 35,
+	radius2: 32,
+	position1: "10% -10%",
+	position2: "90% -10%",
+	opacity1: 0.35,
+	opacity2: 0.28,
+};
+
 /**
- * Theme editor with palette presets and color controls.
+ * Theme editor with palette presets, color controls, and background gradient.
  */
 function ThemeSectionEditor({
 	value,
@@ -910,8 +997,18 @@ function ThemeSectionEditor({
 	value: ThemeSettings;
 	onChange: (value: ThemeSettings) => void;
 }) {
+	const g = value.backgroundGradient ?? defaultBackgroundGradient;
+	const setG = (next: Partial<ThemeSettings["backgroundGradient"]>) =>
+		onChange({ ...value, backgroundGradient: { ...g, ...next } });
+
 	return (
 		<div className="section-card grid gap-4">
+			<EditorSelectField
+				label="Font"
+				value={value.font ?? "geist"}
+				options={fontOptions}
+				onChange={(next) => onChange({ ...value, font: next as ThemeSettings["font"] })}
+			/>
 			<div className="flex flex-wrap gap-2">
 				{themePresets.map((preset) => (
 					<button key={preset.id} type="button" className="button-secondary" onClick={() => onChange({ ...preset.theme })}>
@@ -933,6 +1030,87 @@ function ThemeSectionEditor({
 				value={value.border}
 				onChange={(next) => onChange({ ...value, border: next })}
 			/>
+
+			<div className="mt-4 border-t border-white/15 pt-4">
+				<p className="mb-3 text-sm font-semibold text-white">Background gradient (accent orbs)</p>
+				<label className="flex cursor-pointer items-center gap-2 text-sm text-white/80">
+					<input
+						type="checkbox"
+						checked={g.enabled}
+						onChange={(e) => setG({ enabled: e.target.checked })}
+						className="rounded border-white/30"
+					/>
+					Enable gradient orbs
+				</label>
+				<div className="mt-3 grid gap-2 sm:grid-cols-2">
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 1 radius (%)</label>
+						<input
+							type="number"
+							min={5}
+							max={80}
+							value={g.radius1}
+							onChange={(e) => setG({ radius1: Number(e.target.value) || 35 })}
+							className="input-field"
+						/>
+					</div>
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 2 radius (%)</label>
+						<input
+							type="number"
+							min={5}
+							max={80}
+							value={g.radius2}
+							onChange={(e) => setG({ radius2: Number(e.target.value) || 32 })}
+							className="input-field"
+						/>
+					</div>
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 1 position (e.g. 10% -10%)</label>
+						<input
+							type="text"
+							value={g.position1}
+							onChange={(e) => setG({ position1: e.target.value })}
+							className="input-field"
+							placeholder="10% -10%"
+						/>
+					</div>
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 2 position (e.g. 90% -10%)</label>
+						<input
+							type="text"
+							value={g.position2}
+							onChange={(e) => setG({ position2: e.target.value })}
+							className="input-field"
+							placeholder="90% -10%"
+						/>
+					</div>
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 1 opacity (0–1)</label>
+						<input
+							type="number"
+							min={0}
+							max={1}
+							step={0.05}
+							value={g.opacity1}
+							onChange={(e) => setG({ opacity1: Number(e.target.value) || 0 })}
+							className="input-field"
+						/>
+					</div>
+					<div className="grid gap-1">
+						<label className="text-sm text-white/75">Orb 2 opacity (0–1)</label>
+						<input
+							type="number"
+							min={0}
+							max={1}
+							step={0.05}
+							value={g.opacity2}
+							onChange={(e) => setG({ opacity2: Number(e.target.value) || 0 })}
+							className="input-field"
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }

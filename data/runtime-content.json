@@ -1,1 +1,166 @@
-{}
+{
+	"profile": {
+		"name": "Zane Davis",
+		"tagline": "I build robots that obey. Sometimes me.",
+		"bio": "I’m Zane, a high schooler obsessed with code, robots, and making machines do my bidding. I spend most of my time building AI, automating systems, and tinkering with projects that probably shouldn’t exist… yet. Always iterating, always optimizing, always thinking of new solutions to even the utmost simple of problems (and spending too much time on them as well).",
+		"location": "Silverton, Oregon, United States of America ",
+		"email": "zaneamater@gmail.com"
+	},
+	"github": {
+		"username": "Enazzzz",
+		"profileUrl": "https://github.com/Enazzzz",
+		"avatarUrl": "https://avatars.githubusercontent.com/u/166880364?s=400&u=70aeb8962f0ad47e5884b118f5003761b5248331&v=4",
+		"statsNote": "Open source fan. Shipping, learning, and sharing in public."
+	},
+	"projects": [
+		{
+			"id": "project-e2f509a3",
+			"title": "First project- Testing website!!!",
+			"description": "Describe what this project solves and why it matters.",
+			"type": "code",
+			"tech": [
+				"TypeScript",
+				"Next.js"
+			],
+			"links": {}
+		}
+	],
+	"skills": [
+		{
+			"id": "frontend",
+			"title": "Frontend",
+			"skills": [
+				{
+					"id": "ts",
+					"name": "TypeScript",
+					"icon": "TS"
+				},
+				{
+					"id": "react",
+					"name": "React",
+					"icon": "RE"
+				},
+				{
+					"id": "next",
+					"name": "Next.js",
+					"icon": "NX"
+				},
+				{
+					"id": "tailwind",
+					"name": "Tailwind CSS",
+					"icon": "TW"
+				}
+			]
+		},
+		{
+			"id": "backend",
+			"title": "Backend",
+			"skills": [
+				{
+					"id": "node",
+					"name": "Node.js",
+					"icon": "ND"
+				},
+				{
+					"id": "api",
+					"name": "REST APIs",
+					"icon": "API"
+				},
+				{
+					"id": "db",
+					"name": "Databases",
+					"icon": "DB"
+				}
+			]
+		},
+		{
+			"id": "tools",
+			"title": "Tools",
+			"skills": [
+				{
+					"id": "git",
+					"name": "Git",
+					"icon": "GT"
+				},
+				{
+					"id": "vercel",
+					"name": "Vercel",
+					"icon": "VC"
+				}
+			]
+		}
+	],
+	"experience": [
+		{
+			"id": "exp-2",
+			"role": "Product Builder",
+			"organization": "Independent Projects",
+			"period": "2022 - Present",
+			"description": "just doin whatever i think is cool"
+		},
+		{
+			"id": "experience-05fbf4d2",
+			"role": "Lead Programmer",
+			"organization": "Hotwire Robotics",
+			"period": "2025 - Present",
+			"description": "I am the lead programmer for the FRC team Hotwire Robotics (2990!). I mostly focus on logging and other adjacent things. I just like hopping around and helping/building whatever I find!"
+		}
+	],
+	"awards": [
+		{
+			"id": "award-6f2d9f66",
+			"name": "Test Award",
+			"issuer": "",
+			"date": "",
+			"description": "",
+			"link": "",
+			"imageUrl": ""
+		}
+	],
+	"nowEntries": [
+		{
+			"id": "now-45f2f0a6",
+			"date": "2026-02-25",
+			"content": "Just made this website public!"
+		}
+	],
+	"links": [
+		{
+			"id": "github",
+			"label": "GitHub",
+			"url": "https://github.com/Enazzzz"
+		},
+		{
+			"id": "email",
+			"label": "Email",
+			"url": "mailto:zaneamater@gmail.com"
+		},
+		{
+			"id": "link-c7c77564",
+			"label": "Donos",
+			"url": "https://buymeacoffee.com/enazzzz"
+		}
+	],
+	"theme": {
+		"bg": "#080607",
+		"surface": "#0F0D0D",
+		"text": "#F5EAEA",
+		"accent": "#FF3B3B",
+		"accentAlt": "#B22A2A",
+		"border": "rgba(255, 59, 59, 0.2)",
+		"font": "geist",
+		"backgroundGradient": {
+			"enabled": true,
+			"radius1": 35,
+			"radius2": 32,
+			"position1": "10% -10%",
+			"position2": "90% -10%",
+			"opacity1": 0.35,
+			"opacity2": 0.28
+		}
+	},
+	"site": {
+		"siteTitle": "Zane Davis",
+		"iconText": "ZD"
+	}
+}

@@ -15,13 +15,33 @@
 	--font-mono: var(--font-geist-mono);
 }
 
+/* Smooth scroll for anchor links (View my work, Say hi, nav, etc.) */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Same as header bar so overscroll (rubber-band) shows one continuous color */
+html,
 body {
-	background:
-		radial-gradient(circle at 10% -10%, rgba(140, 123, 255, 0.35), transparent 35%),
-		radial-gradient(circle at 90% -10%, rgba(39, 216, 255, 0.28), transparent 32%),
-		var(--bg);
+	background: var(--surface);
 	color: var(--text);
 	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Page content gradient uses theme (Console → Theme). Colors include opacity; set in layout. */
+.page-content-bg {
+	background:
+		radial-gradient(
+			circle at var(--gradient-position1, 10% -10%),
+			var(--gradient-color1, rgba(140, 123, 255, 0.35)) var(--gradient-radius1, 35%),
+			transparent var(--gradient-radius1, 35%)
+		),
+		radial-gradient(
+			circle at var(--gradient-position2, 90% -10%),
+			var(--gradient-color2, rgba(39, 216, 255, 0.28)) var(--gradient-radius2, 32%),
+			transparent var(--gradient-radius2, 32%)
+		),
+		var(--bg);
 }
 
 .section-card {
@@ -29,6 +49,13 @@ body {
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 	border-radius: 1rem;
 	padding: 1.25rem;
+	transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.section-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+	border-color: rgba(255, 255, 255, 0.18);
 }
 
 .button-main {
@@ -85,10 +112,19 @@ body {
 	animation: fadeInUp 640ms ease both;
 }
 
+/* Stagger delays for sequential section animations (use with fade-in-up) */
+.fade-in-up-delay-1 { animation-delay: 80ms; }
+.fade-in-up-delay-2 { animation-delay: 160ms; }
+.fade-in-up-delay-3 { animation-delay: 240ms; }
+.fade-in-up-delay-4 { animation-delay: 320ms; }
+.fade-in-up-delay-5 { animation-delay: 400ms; }
+.fade-in-up-delay-6 { animation-delay: 480ms; }
+.fade-in-up-delay-7 { animation-delay: 560ms; }
+
 @keyframes fadeInUp {
 	from {
 		opacity: 0;
-		transform: translateY(12px);
+		transform: translateY(16px);
 	}
 	to {
 		opacity: 1;
@@ -96,8 +132,33 @@ body {
 	}
 }
 
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+.fade-in {
+	animation: fadeIn 500ms ease both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-	.fade-in-up {
+	html {
+		scroll-behavior: auto;
+	}
+	.fade-in-up,
+	.fade-in-up-delay-1,
+	.fade-in-up-delay-2,
+	.fade-in-up-delay-3,
+	.fade-in-up-delay-4,
+	.fade-in-up-delay-5,
+	.fade-in-up-delay-6,
+	.fade-in-up-delay-7,
+	.fade-in {
 		animation: none;
+		animation-delay: 0ms;
+	}
+	.section-card:hover {
+		transform: none;
+		box-shadow: none;
 	}
 }

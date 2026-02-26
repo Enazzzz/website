@@ -28,7 +28,7 @@ export function Hero({
 					</a>
 				</div>
 			</div>
-			<aside className="section-card fade-in-up" aria-label="GitHub profile">
+			<aside className="section-card fade-in-up fade-in-up-delay-1" aria-label="GitHub profile">
 				<div className="flex items-center gap-3">
 					<Image
 						src={github.avatarUrl}
