@@ -17,8 +17,9 @@ export function Header({
 }) {
 	const badge = (iconText || "PH").slice(0, 3);
 	return (
-		<header className="sticky top-0 z-30 border-b border-white/10 bg-[color:var(--surface)]/80 backdrop-blur-md">
-			<div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
+		<header className="header-bar sticky top-0 z-30 border-b border-white/10">
+			<div className="header-bar-inner" aria-hidden />
+			<div className="header-bar-content mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
 				<a href="/" className="flex items-center gap-2 text-sm font-semibold tracking-wide text-white">
 					<span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[color:var(--accent)] to-[color:var(--accent-alt)] text-[11px] font-black text-black">
 						{badge}

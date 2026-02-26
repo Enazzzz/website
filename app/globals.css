@@ -28,18 +28,48 @@ body {
 	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Page content gradient uses theme (Console → Theme). Colors include opacity; set in layout. */
+/* Header bar: frosted glass. Inner layer has blur so it works with position:sticky. */
+.header-bar {
+	position: relative;
+	background: transparent;
+	/* Force own compositing layer so backdrop-filter has a defined backdrop */
+	transform: translateZ(0);
+}
+
+.header-bar .header-bar-inner {
+	position: absolute;
+	inset: 0;
+	background: color-mix(in srgb, var(--surface) 80%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	z-index: 0;
+}
+
+.header-bar .header-bar-content {
+	position: relative;
+	z-index: 1;
+}
+
+/* Page content gradient: one circle per orb, gradient from center with a soft edge. */
 .page-content-bg {
+	--orb1: var(--gradient-color1, rgba(140, 123, 255, 0.35));
+	--orb2: var(--gradient-color2, rgba(39, 216, 255, 0.28));
+	--r1: var(--gradient-radius1, 35%);
+	--r2: var(--gradient-radius2, 32%);
 	background:
+		/* Circle 1: gradient from center, soft fade at the circle edge */
 		radial-gradient(
 			circle at var(--gradient-position1, 10% -10%),
-			var(--gradient-color1, rgba(140, 123, 255, 0.35)) var(--gradient-radius1, 35%),
-			transparent var(--gradient-radius1, 35%)
+			var(--orb1) 0%,
+			var(--orb1) 18%,
+			transparent var(--r1)
 		),
+		/* Circle 2: same */
 		radial-gradient(
 			circle at var(--gradient-position2, 90% -10%),
-			var(--gradient-color2, rgba(39, 216, 255, 0.28)) var(--gradient-radius2, 32%),
-			transparent var(--gradient-radius2, 32%)
+			var(--orb2) 0%,
+			var(--orb2) 18%,
+			transparent var(--r2)
 		),
 		var(--bg);
 }
@@ -86,6 +116,15 @@ body {
 	color: var(--accent);
 }
 
+/* Subtle transition for all interactive elements (buttons, links, inputs, tabs). */
+button,
+a,
+.input-field,
+select,
+[role="button"] {
+	transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, opacity 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
 .link-action {
 	color: var(--accent-alt);
 }
@@ -128,7 +167,7 @@ body {
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
+		transform: none; /* avoid leaving transform so header backdrop-filter can blur scrolling content */
 	}
 }
 
@@ -144,6 +183,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
+	}
+	button,
+	a,
+	.input-field,
+	select,
+	[role="button"] {
+		transition: none;
 	}
 	.fade-in-up,
 	.fade-in-up-delay-1,

@@ -38,10 +38,10 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 							key={filter.id}
 							type="button"
 							onClick={() => setSelected(filter.id)}
-							className={`rounded-full border px-3 py-1 text-sm transition ${
+							className={`rounded-full border px-3 py-1 text-sm transition-colors duration-200 ease-out ${
 								selected === filter.id
 									? "border-[color:var(--accent)] bg-[color:var(--accent)]/20 text-[color:var(--accent)]"
-									: "border-white/20 text-white/80 hover:border-[color:var(--accent)]"
+									: "border-white/20 text-white/80 hover:border-[color:var(--accent)] hover:text-white/95"
 							}`}
 						>
 							{filter.label}

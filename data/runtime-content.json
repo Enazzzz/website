@@ -155,8 +155,8 @@
 			"radius2": 32,
 			"position1": "10% -10%",
 			"position2": "90% -10%",
-			"opacity1": 0.35,
-			"opacity2": 0.28
+			"opacity1": 0.15,
+			"opacity2": 0.075
 		}
 	},
 	"site": {
