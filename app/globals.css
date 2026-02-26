@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+	--bg: #06070e;
+	--surface: #101423;
+	--surface-soft: #151a2d;
+	--text: #f6f7ff;
+	--accent: #8c7bff;
+	--accent-alt: #27d8ff;
+	--border: rgba(255, 255, 255, 0.12);
+}
+
+@theme inline {
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+}
+
+body {
+	background:
+		radial-gradient(circle at 10% -10%, rgba(140, 123, 255, 0.35), transparent 35%),
+		radial-gradient(circle at 90% -10%, rgba(39, 216, 255, 0.28), transparent 32%),
+		var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.section-card {
+	border: 1px solid var(--border);
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+	border-radius: 1rem;
+	padding: 1.25rem;
+}
+
+.button-main {
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+	color: #05060b;
+	font-weight: 700;
+	padding: 0.65rem 1.1rem;
+	transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.button-main:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 8px 30px rgba(140, 123, 255, 0.35);
+}
+
+.button-secondary {
+	border-radius: 999px;
+	border: 1px solid var(--border);
+	color: var(--text);
+	font-weight: 600;
+	padding: 0.65rem 1.1rem;
+	transition: border-color 160ms ease, color 160ms ease;
+}
+
+.button-secondary:hover {
+	border-color: var(--accent);
+	color: var(--accent);
+}
+
+.link-action {
+	color: var(--accent-alt);
+}
+
+.link-action:hover {
+	text-decoration: underline;
+}
+
+.input-field {
+	width: 100%;
+	border-radius: 0.75rem;
+	border: 1px solid var(--border);
+	background-color: var(--surface-soft);
+	padding: 0.7rem 0.85rem;
+	font-size: 0.95rem;
+	color: var(--text);
+}
+
+.input-field::placeholder {
+	color: rgba(246, 247, 255, 0.45);
+}
+
+.fade-in-up {
+	animation: fadeInUp 640ms ease both;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fade-in-up {
+		animation: none;
+	}
+}
