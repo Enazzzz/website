@@ -8,12 +8,16 @@ export function Header({
 	links,
 	siteTitle = "Portfolio Hub",
 	iconText = "PH",
+	showConsoleLink = true,
+	showWinsLink = true,
 }: {
 	links: LinkEntry[];
-	/** Browser/site name shown next to the logo (editable in Console → Site). */
 	siteTitle?: string;
-	/** 1–3 chars shown in the logo badge (editable in Console → Site). */
 	iconText?: string;
+	/** When false, hides the Console nav link (e.g. when not running locally). */
+	showConsoleLink?: boolean;
+	/** When false, hides the Wins nav link (e.g. when there are no awards). */
+	showWinsLink?: boolean;
 }) {
 	const badge = (iconText || "PH").slice(0, 3);
 	return (
@@ -33,18 +37,22 @@ export function Header({
 					<a href="#the-journey" className="transition hover:text-[color:var(--accent)]">
 						The Journey
 					</a>
-					<a href="#wins" className="transition hover:text-[color:var(--accent)]">
-						Wins
-					</a>
+					{showWinsLink ? (
+						<a href="#wins" className="transition hover:text-[color:var(--accent)]">
+							Wins
+						</a>
+					) : null}
 					<a href="#say-hi" className="transition hover:text-[color:var(--accent)]">
 						Say hi
 					</a>
 					<a href="/now" className="transition hover:text-[color:var(--accent)]">
 						Now
 					</a>
-					<a href="/console" className="transition hover:text-[color:var(--accent)]">
-						Console
-					</a>
+					{showConsoleLink ? (
+						<a href="/console" className="transition hover:text-[color:var(--accent)]">
+							Console
+						</a>
+					) : null}
 				</nav>
 				<div className="flex items-center gap-2">
 					{links.slice(0, 2).map((link) => (

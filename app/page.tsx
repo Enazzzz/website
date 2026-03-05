@@ -21,6 +21,8 @@ export default async function Home() {
 				links={content.links}
 				siteTitle={content.site?.siteTitle ?? content.profile.name}
 				iconText={content.site?.iconText}
+				showConsoleLink={!process.env.VERCEL}
+				showWinsLink={content.awards.length > 0}
 			/>
 			<main className="pb-24">
 				<Hero profile={content.profile} github={content.github} />
@@ -36,9 +38,11 @@ export default async function Home() {
 				<div className="fade-in-up fade-in-up-delay-4">
 					<ExperienceSection items={content.experience} />
 				</div>
-				<div className="fade-in-up fade-in-up-delay-5">
-					<AwardsSection awards={content.awards} />
-				</div>
+				{content.awards.length > 0 ? (
+					<div className="fade-in-up fade-in-up-delay-5">
+						<AwardsSection awards={content.awards} />
+					</div>
+				) : null}
 				<div className="fade-in-up fade-in-up-delay-6">
 					<ContactForm />
 				</div>

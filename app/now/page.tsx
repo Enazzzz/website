@@ -18,6 +18,8 @@ export default async function NowPage() {
 				links={content.links}
 				siteTitle={content.site?.siteTitle ?? content.profile.name}
 				iconText={content.site?.iconText}
+				showConsoleLink={!process.env.VERCEL}
+				showWinsLink={content.awards.length > 0}
 			/>
 			<main className="mx-auto w-full max-w-4xl px-6 py-12 md:py-20">
 				<p className="text-xs uppercase tracking-[0.14em] text-[color:var(--accent)]">Now</p>

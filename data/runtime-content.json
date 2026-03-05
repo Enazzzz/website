@@ -10,19 +10,31 @@
 		"username": "Enazzzz",
 		"profileUrl": "https://github.com/Enazzzz",
 		"avatarUrl": "https://avatars.githubusercontent.com/u/166880364?s=400&u=70aeb8962f0ad47e5884b118f5003761b5248331&v=4",
-		"statsNote": "Open source fan. Shipping, learning, and sharing in public."
+		"statsNote": "Open source fan. Shipping, learning, and sharing in public. Feel free to check out my repos- almost everything is free to use.\nIf you really like my work, please consider buying me a coffee!"
 	},
 	"projects": [
 		{
-			"id": "project-e2f509a3",
-			"title": "First project- Testing website!!!",
-			"description": "Describe what this project solves and why it matters.",
+			"id": "project-660b5b8f",
+			"title": "SwipeClean",
+			"description": "Really small but useful python script I made! Makes it really easy to clean out large folders, without having to use the overwhelming Windows explorer UX.",
 			"type": "code",
 			"tech": [
 				"TypeScript",
 				"Next.js"
 			],
-			"links": {}
+			"links": {
+				"repository": "https://github.com/Enazzzz/SwipeClean"
+			}
+		},
+		{
+			"id": "project-8586e9b6",
+			"title": "Easy-Custom-Titlebar",
+			"description": "A python package that makes it really easy to have a custom titlebar, like the ones fancy apps have these days. Instead of having the ugly white title bar that Windows natively comes with, it hides it completely, and communicates directly to system APIs. Can break easily in future system updates, if that happens, feel free to fork it or create an issue!",
+			"type": "code",
+			"tech": [],
+			"links": {
+				"repository": "https://github.com/Enazzzz/easy-custom-titlebar"
+			}
 		}
 	],
 	"skills": [
@@ -70,6 +82,11 @@
 					"id": "db",
 					"name": "Databases",
 					"icon": "DB"
+				},
+				{
+					"id": "skill-76be4426",
+					"name": "Python",
+					"icon": "Py"
 				}
 			]
 		},
@@ -86,6 +103,52 @@
 					"id": "vercel",
 					"name": "Vercel",
 					"icon": "VC"
+				},
+				{
+					"id": "skill-b5a6b218",
+					"name": "Inkscape",
+					"icon": "INK"
+				},
+				{
+					"id": "skill-61318b27",
+					"name": "Gimp",
+					"icon": "Gmp"
+				},
+				{
+					"id": "skill-2fe92b73",
+					"name": "Autodesk Inventor & AutoCAD",
+					"icon": "ADSK"
+				},
+				{
+					"id": "skill-0d6f76ce",
+					"name": "Godot",
+					"icon": "GD"
+				}
+			]
+		},
+		{
+			"id": "skills-9edfc2e2",
+			"title": "Programming Languages",
+			"skills": [
+				{
+					"id": "skill-529b0b95",
+					"name": "Java",
+					"icon": "🍵"
+				},
+				{
+					"id": "skill-fe51e1d3",
+					"name": "Python (the best)",
+					"icon": "Py"
+				},
+				{
+					"id": "skill-7c300a59",
+					"name": "HTML",
+					"icon": ""
+				},
+				{
+					"id": "skill-95a31a72",
+					"name": "Typescript",
+					"icon": "TS"
 				}
 			]
 		}
@@ -95,7 +158,7 @@
 			"id": "exp-2",
 			"role": "Product Builder",
 			"organization": "Independent Projects",
-			"period": "2022 - Present",
+			"period": "2018 - Present",
 			"description": "just doin whatever i think is cool"
 		},
 		{
@@ -106,17 +169,7 @@
 			"description": "I am the lead programmer for the FRC team Hotwire Robotics (2990!). I mostly focus on logging and other adjacent things. I just like hopping around and helping/building whatever I find!"
 		}
 	],
-	"awards": [
-		{
-			"id": "award-6f2d9f66",
-			"name": "Test Award",
-			"issuer": "",
-			"date": "",
-			"description": "",
-			"link": "",
-			"imageUrl": ""
-		}
-	],
+	"awards": [],
 	"nowEntries": [
 		{
 			"id": "now-45f2f0a6",
