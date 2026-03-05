@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { HeaderWithHide } from "@/components/HeaderWithHide";
 import { NowMarkdownContent } from "@/components/NowMarkdownContent";
 import { getSiteContent } from "@/lib/content-store";
 
@@ -14,7 +14,7 @@ export default async function NowPage() {
 
 	return (
 		<div className="page-content-bg min-h-screen">
-			<Header
+			<HeaderWithHide
 				links={content.links}
 				siteTitle={content.site?.siteTitle ?? content.profile.name}
 				iconText={content.site?.iconText}

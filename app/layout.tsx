@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Playfair_Display, Space_Grotesk } from "next/font/google";
+import {
+	DM_Sans,
+	Geist,
+	Geist_Mono,
+	Inter,
+	Outfit,
+	Playfair_Display,
+	Space_Grotesk,
+	Syne,
+} from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { getSiteContent } from "@/lib/content-store";
@@ -11,6 +20,9 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({ variable: "--font-space-grotesk", subsets: ["latin"] });
+const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"] });
+const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"] });
+const syne = Syne({ variable: "--font-syne", subsets: ["latin"] });
 
 /** Converts hex (e.g. #8c7bff) and opacity (0–1) to rgba string for gradient orbs. */
 function hexToRgba(hex: string, opacity: number): string {
@@ -22,12 +34,15 @@ function hexToRgba(hex: string, opacity: number): string {
 	return `rgba(${r},${g},${b},${opacity})`;
 }
 
-/** Maps theme font id to the CSS variable name for the body font. */
+/** Maps theme font id to the CSS variable for body/headings. */
 const fontVariableMap: Record<ThemeFontId, string> = {
 	geist: "var(--font-geist-sans)",
 	inter: "var(--font-inter)",
 	playfair: "var(--font-playfair)",
 	"space-grotesk": "var(--font-space-grotesk)",
+	"dm-sans": "var(--font-dm-sans)",
+	outfit: "var(--font-outfit)",
+	syne: "var(--font-syne)",
 };
 
 /** Build metadata from site content (title and optional favicon URL). */
@@ -57,6 +72,7 @@ export default async function RootLayout({
 	const content = await getSiteContent();
 	const theme = content.theme;
 	const fontId = theme.font ?? "geist";
+	const headingFontId = theme.fontHeading ?? fontId;
 	const g = theme.backgroundGradient ?? {
 		enabled: true,
 		radius1: 35,
@@ -78,6 +94,7 @@ export default async function RootLayout({
 		"--accent-alt": theme.accentAlt,
 		"--border": theme.border,
 		"--font-sans": fontVariableMap[fontId] ?? fontVariableMap.geist,
+		"--font-heading": fontVariableMap[headingFontId] ?? fontVariableMap[fontId] ?? fontVariableMap.geist,
 		"--gradient-radius1": `${g.radius1}%`,
 		"--gradient-radius2": `${g.radius2}%`,
 		"--gradient-position1": g.position1,
@@ -89,7 +106,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en" style={themedVariables}>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${dmSans.variable} ${outfit.variable} ${syne.variable} antialiased`}
 			>
 				{children}
 				<Analytics />

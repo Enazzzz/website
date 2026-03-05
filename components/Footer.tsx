@@ -5,7 +5,7 @@ import type { LinkEntry } from "@/data/types";
  */
 export function Footer({ links }: { links: LinkEntry[] }) {
 	return (
-		<footer className="border-t border-white/10 py-8">
+		<footer className="footer-frosted border-t border-white/10 py-8">
 			<div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6">
 				<p className="text-sm text-white/60">Built with Next.js and a lot of color.</p>
 				<div className="flex flex-wrap gap-3">

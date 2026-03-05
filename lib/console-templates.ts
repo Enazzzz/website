@@ -99,10 +99,13 @@ export const themePresets: Array<{ id: string; label: string; theme: ThemeSettin
 	},
 ];
 
-/** Font options for the Theme editor dropdown. */
-export const fontOptions: Array< { id: ThemeSettings["font"]; label: string }> = [
-	{ id: "geist", label: "Geist (default)" },
+/** Font options for body and heading dropdowns. */
+export const fontOptions: Array<{ id: ThemeSettings["font"]; label: string }> = [
+	{ id: "geist", label: "Geist" },
 	{ id: "inter", label: "Inter" },
-	{ id: "playfair", label: "Playfair Display (serif)" },
+	{ id: "dm-sans", label: "DM Sans" },
+	{ id: "outfit", label: "Outfit" },
+	{ id: "syne", label: "Syne" },
 	{ id: "space-grotesk", label: "Space Grotesk" },
+	{ id: "playfair", label: "Playfair Display (serif)" },
 ];

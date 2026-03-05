@@ -3,7 +3,7 @@ import { AwardsSection } from "@/components/AwardsSection";
 import { ContactForm } from "@/components/ContactForm";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { HeaderWithHide } from "@/components/HeaderWithHide";
 import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillsSection } from "@/components/SkillsSection";
@@ -17,7 +17,7 @@ export default async function Home() {
 
 	return (
 		<div className="page-content-bg min-h-screen">
-			<Header
+			<HeaderWithHide
 				links={content.links}
 				siteTitle={content.site?.siteTitle ?? content.profile.name}
 				iconText={content.site?.iconText}

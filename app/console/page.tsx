@@ -1004,10 +1004,16 @@ function ThemeSectionEditor({
 	return (
 		<div className="section-card grid gap-4">
 			<EditorSelectField
-				label="Font"
+				label="Body font"
 				value={value.font ?? "geist"}
 				options={fontOptions}
 				onChange={(next) => onChange({ ...value, font: next as ThemeSettings["font"] })}
+			/>
+			<EditorSelectField
+				label="Heading font (h1, h2, h3)"
+				value={value.fontHeading ?? value.font ?? "geist"}
+				options={fontOptions}
+				onChange={(next) => onChange({ ...value, fontHeading: next as ThemeSettings["font"] })}
 			/>
 			<div className="flex flex-wrap gap-2">
 				{themePresets.map((preset) => (

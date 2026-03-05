@@ -72,6 +72,7 @@ function mergeTheme(base: SiteContent["theme"], override: Partial<SiteContent["t
 		accentAlt: override.accentAlt ?? base.accentAlt,
 		border: override.border ?? base.border,
 		font: override.font ?? base.font,
+		fontHeading: override.fontHeading ?? base.fontHeading,
 		backgroundGradient: mergeBackgroundGradient(base.backgroundGradient, override.backgroundGradient),
 	};
 }

@@ -109,8 +109,15 @@ export interface ProfileContent {
 /**
  * Single content schema used by public pages and console CRUD.
  */
-/** Font family key used for body/sans (e.g. geist, inter, playfair). */
-export type ThemeFontId = "geist" | "inter" | "playfair" | "space-grotesk";
+/** Font family key for body or headings (Theme → Font). */
+export type ThemeFontId =
+	| "geist"
+	| "inter"
+	| "playfair"
+	| "space-grotesk"
+	| "dm-sans"
+	| "outfit"
+	| "syne";
 
 /** Background gradient orbs (accent-colored). Toggleable and customizable in Theme. */
 export interface BackgroundGradientSettings {
@@ -137,8 +144,10 @@ export interface ThemeSettings {
 	accent: string;
 	accentAlt: string;
 	border: string;
-	/** Which font to use site-wide. */
+	/** Body text font. */
 	font: ThemeFontId;
+	/** Heading font (h1, h2, h3). Omit to use same as font. */
+	fontHeading?: ThemeFontId;
 	/** Page background gradient orbs (uses accent colors). */
 	backgroundGradient: BackgroundGradientSettings;
 }

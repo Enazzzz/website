@@ -28,6 +28,66 @@ body {
 	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Heading font (Theme → Heading font). Use for section titles and labels. */
+h1, h2, h3, .font-heading {
+	font-family: var(--font-heading, var(--font-sans)), var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Spacer for fixed header (used by HeaderWithHide so content doesn’t jump). */
+.header-spacer {
+	height: 4.5rem; /* ~72px, matches header bar */
+}
+
+/* Wrapper for auto-hide header: fixed, peeks when scrolled, pulls down on hover. */
+.header-hide-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 40;
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.28s ease-out;
+}
+
+/* Collapsed: only the peek strip is visible; hover the strip to pull the bar down. */
+.header-hide-wrapper.collapsed {
+	transform: translateY(calc(-100% + var(--header-peek-px, 20px)));
+}
+
+.header-hide-wrapper.collapsed:hover {
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.header-hide-wrapper {
+		transition: none;
+	}
+}
+
+/* Visible “pull down” strip when header is peeking: hint that it can be expanded. */
+.header-peek-strip {
+	flex-shrink: 0;
+	height: var(--header-peek-px, 20px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: color-mix(in srgb, var(--surface) 88%, transparent);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	pointer-events: none;
+}
+
+.header-peek-strip-icon {
+	color: rgba(255, 255, 255, 0.6);
+	transition: color 0.2s ease;
+}
+
+.header-hide-wrapper:hover .header-peek-strip-icon {
+	color: var(--accent);
+}
+
 /* Header bar: frosted glass. Inner layer has blur so it works with position:sticky. */
 .header-bar {
 	position: relative;
@@ -50,21 +110,31 @@ body {
 	z-index: 1;
 }
 
-/* Page content gradient: one circle per orb, gradient from center with a soft edge. */
+/* Footer: subtle frosted bar so gradient shows through. */
+.footer-frosted {
+	background: color-mix(in srgb, var(--surface) 85%, transparent);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+}
+
+/* Page content gradient: orbs + subtle side fill so edges aren’t blank. */
 .page-content-bg {
 	--orb1: var(--gradient-color1, rgba(140, 123, 255, 0.35));
 	--orb2: var(--gradient-color2, rgba(39, 216, 255, 0.28));
 	--r1: var(--gradient-radius1, 35%);
 	--r2: var(--gradient-radius2, 32%);
+	--side-fill: color-mix(in srgb, var(--surface) 25%, transparent);
 	background:
-		/* Circle 1: gradient from center, soft fade at the circle edge */
+		/* Soft vertical bands on sides so layout doesn’t feel empty */
+		linear-gradient(to right, var(--side-fill) 0%, transparent 14%, transparent 86%, var(--side-fill) 100%),
+		/* Circle 1 */
 		radial-gradient(
 			circle at var(--gradient-position1, 10% -10%),
 			var(--orb1) 0%,
 			var(--orb1) 18%,
 			transparent var(--r1)
 		),
-		/* Circle 2: same */
+		/* Circle 2 */
 		radial-gradient(
 			circle at var(--gradient-position2, 90% -10%),
 			var(--orb2) 0%,
@@ -74,9 +144,12 @@ body {
 		var(--bg);
 }
 
+/* Frosted card: blur lets the gradient show through for depth. */
 .section-card {
 	border: 1px solid var(--border);
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 	border-radius: 1rem;
 	padding: 1.25rem;
 	transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
